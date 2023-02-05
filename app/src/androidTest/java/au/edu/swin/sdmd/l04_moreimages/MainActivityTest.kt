@@ -15,6 +15,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * @author: Nicole Ronald
+ * Run 2 tests:
+ * (1) image displayed correctly on button click
+ * (2) image displayed correctly on rotation
+ */
 @LargeTest
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
@@ -27,6 +33,7 @@ class MainActivityTest {
     fun testImageChangeOnClick() {
         val materialButton = onView(allOf(withId(R.id.college)))
         materialButton.perform(click())
+
         val imageView = onView(
             allOf(withId(R.id.imageView), withContentDescription("college")))
         imageView.check(ViewAssertions.matches(isDisplayed()))
@@ -47,6 +54,5 @@ class MainActivityTest {
         imageView = onView(
             allOf(withId(R.id.imageView), withContentDescription("college")))
         imageView.check(ViewAssertions.matches(isDisplayed()))
-
     }
 }

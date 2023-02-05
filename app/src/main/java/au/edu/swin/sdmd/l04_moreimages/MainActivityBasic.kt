@@ -8,12 +8,11 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 
-const val KEY_IMAGE = "image_key"
-
-const val TAG = "MainAct/LC"
-
-/* State persistence: using Bundle */
-class MainActivity : AppCompatActivity() {
+/**
+ * Basic version without persistence but has Logging
+ * Used to demonstrate logging and debugging.
+ * */
+class MainActivityBasic : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // must have this statement at the start!!
@@ -22,41 +21,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val image = findViewById<ImageView>(R.id.imageView)
-
-        /**
-         * This is the code to restore the state.
-         *
-         * The override function onRestoreInstanceState can also be used, however
-         * this is called at a different point in the lifecycle.
-         */
-        savedInstanceState?.let {
-            image.contentDescription = it.getString(KEY_IMAGE)
-
-            image.apply {
-                when (contentDescription) {
-                    "station" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
-                            R.drawable.station
-                        )
-                    )
-                    "college" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
-                            R.drawable.college
-                        )
-                    )
-                    "theatre" -> setImageDrawable(
-                        AppCompatResources.getDrawable(
-                            applicationContext,
-                            R.drawable.theatre
-                        )
-                    )
-                }
-            }
-            Log.i(TAG, "onRestoreInstanceState")
-        }
-
 
         val station = findViewById<Button>(R.id.station)
         station.setOnClickListener {
@@ -75,19 +39,6 @@ class MainActivity : AppCompatActivity() {
         theatre.setOnClickListener(onClickTheatre)
 
         Log.i(TAG, "onCreate")
-    }
-
-    /**
-     * This is needed to save state. The variables to save need to be
-     * added to a Bundle with a key, in this case "image".
-     */
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        val image = findViewById<ImageView>(R.id.imageView)
-        outState.putString(KEY_IMAGE, image.contentDescription.toString())
-
-        Log.i(TAG, "onSaveInstanceState")
     }
 
     fun onClickCollege(v: View) {
