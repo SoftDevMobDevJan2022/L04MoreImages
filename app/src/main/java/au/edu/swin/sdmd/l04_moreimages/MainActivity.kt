@@ -30,8 +30,10 @@ class MainActivity : AppCompatActivity() {
          * this is called at a different point in the lifecycle.
          */
         savedInstanceState?.let {
+            // 1: retrieved the saved state
             image.contentDescription = it.getString(KEY_IMAGE)
 
+            // 2: update the view state from the retrieved state
             image.apply {
                 when (contentDescription) {
                     "station" -> setImageDrawable(
